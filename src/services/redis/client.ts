@@ -12,3 +12,4 @@ client.on('error', (err) => console.error(err));
 client.connect();
 
 export { client };
+
