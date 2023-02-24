@@ -1,3 +1,6 @@
+# LearnRedisCommand-ECommerce
+Learning primitive redis command through Build an E-Commerce web app. This repo only focus on the command of Redis, the client side using temples for easier watching the results.
+
 # create-svelte
 
 Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/master/packages/create-svelte).
