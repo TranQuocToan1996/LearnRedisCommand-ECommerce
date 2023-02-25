@@ -1,5 +1,5 @@
 # LearnRedisCommand-ECommerce
-Learning primitive redis command through Build an E-Commerce web app. This repo only focus on the command of Redis, the client side using templates for easier watching the results.
+Learning primitive redis commands through Build an E-Commerce web app. This repo only focus on the command of Redis, the client side using template for easier watching the results.
 
 # create-svelte
 
