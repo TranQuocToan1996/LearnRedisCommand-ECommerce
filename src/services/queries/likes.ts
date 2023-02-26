@@ -1,37 +1,37 @@
-import { itemsKey, userlikesKey } from '$services/keys';
 import { client } from '$services/redis';
+import { userLikesKey, itemsKey } from '$services/keys';
 import { getItems } from './items';
 
-const likeKey: string = 'likes';
-
-// userLikesItem check whether user is like an item or not
 export const userLikesItem = async (itemId: string, userId: string) => {
-	return client.sIsMember(userlikesKey(userId), itemId);
+	return client.sIsMember(userLikesKey(userId), itemId);
+};
+
+export const likedItems = async (userId: string) => {
+	// Fetch all the item ID's from this user's liked set
+	const ids = await client.sMembers(userLikesKey(userId));
+
+	// Fetch all the item hashes with those ids and return as array
+	return getItems(ids);
 };
 
 export const likeItem = async (itemId: string, userId: string) => {
-	const inserted = await client.sAdd(userlikesKey(userId), itemId);
+	const inserted = await client.sAdd(userLikesKey(userId), itemId);
 
 	if (inserted) {
-		return client.hIncrBy(itemsKey(itemId), likeKey, 1);
+		return client.hIncrBy(itemsKey(itemId), 'likes', 1);
 	}
 };
 
 export const unlikeItem = async (itemId: string, userId: string) => {
-	const removed = await client.sRem(userlikesKey(userId), itemId);
+	const removed = await client.sRem(userLikesKey(userId), itemId);
 
 	if (removed) {
-		return client.hIncrBy(itemsKey(itemId), likeKey, -1);
+		return client.hIncrBy(itemsKey(itemId), 'likes', -1);
 	}
 };
 
-export const likedItems = async (userId: string) => {
-	const ids = await client.sMembers(userlikesKey(userId));
-	return getItems(ids);
-};
-
-// commonLikedItems also is intersection-set like between 2 users
 export const commonLikedItems = async (userOneId: string, userTwoId: string) => {
-	const ids = await client.sInter([userlikesKey(userOneId), userlikesKey(userTwoId)]);
-    return getItems(ids);
+	const ids = await client.sInter([userLikesKey(userOneId), userLikesKey(userTwoId)]);
+
+	return getItems(ids);
 };

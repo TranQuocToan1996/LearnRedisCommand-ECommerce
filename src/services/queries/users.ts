@@ -1,54 +1,59 @@
-import { usernamesKey, usernamesUniqueKey, usersKey } from '$services/keys';
-import { client } from '$services/redis';
 import type { CreateUserAttrs } from '$services/types';
 import { genId } from '$services/utils';
+import { client } from '$services/redis';
+import { usersKey, usernamesUniqueKey, usernamesKey } from '$services/keys';
 
 export const getUserByUsername = async (username: string) => {
-	const decimalID = await client.zScore(usernamesKey(), username)
-	if (!decimalID) {
-		throw new Error('username doesnt exist')
+	// Use the username argument to look up the persons User ID
+	// with the usernames sorted set
+	const decimalId = await client.zScore(usernamesKey(), username);
+
+	// make sure we actually got an ID from the lookup
+	if (!decimalId) {
+		throw new Error('User does not exist');
 	}
 
-	const userID = decimalID.toString(16)
+	// Take the id and convert it back to hex
+	const id = decimalId.toString(16);
+	// Use the id to look up the user's hash
+	const user = await client.hGetAll(usersKey(id));
 
-	const user = await client.hGetAll(userID)
-
-	return deSerilize(userID, user)
+	// deserialize and return the hash
+	return deserialize(id, user);
 };
 
 export const getUserById = async (id: string) => {
 	const user = await client.hGetAll(usersKey(id));
 
-	return deSerilize(id,user);
+	return deserialize(id, user);
 };
 
 export const createUser = async (attrs: CreateUserAttrs) => {
-	const userID = genId();
+	const id = genId();
 
-	const exist = await client.sIsMember(usernamesUniqueKey(), attrs.username);
-
-	if (exist) {
-		throw new Error('username is taken')
+	const exists = await client.sIsMember(usernamesUniqueKey(), attrs.username);
+	if (exists) {
+		throw new Error('Username is taken');
 	}
 
-	await client.sAdd(usernamesUniqueKey(), attrs.username)
-	await client.hSet(usersKey(userID), serilize(attrs));
+	await client.hSet(usersKey(id), serialize(attrs));
+	await client.sAdd(usernamesUniqueKey(), attrs.username);
 	await client.zAdd(usernamesKey(), {
 		value: attrs.username,
-		score: parseInt(userID, 16)
+		score: parseInt(id, 16)
 	});
 
-	return userID;
+	return id;
 };
 
-const serilize = (user: CreateUserAttrs) => {
+const serialize = (user: CreateUserAttrs) => {
 	return {
 		username: user.username,
 		password: user.password
 	};
 };
 
-const deSerilize = (id: string, user: { [key: string]: string }) => {
+const deserialize = (id: string, user: { [key: string]: string }) => {
 	return {
 		id,
 		username: user.username,

@@ -8,9 +8,9 @@
 	import Card from '$lib/components/card.svelte';
 	import Stat from '$lib/components/stat.svelte';
 
-	export let item: any = null;
+	export let item: Item | null = null;
 	export let userLikes: boolean = false;
-	export let history: { createdAt: string; amount: number }[] = [];
+	export let history: { createdAt: number; amount: number }[] = [];
 	export let similarItems: Item[] = [];
 	export let userHasHighBid = false;
 
@@ -59,6 +59,7 @@
 		[{ item, userLikes, history, similarItems, userHasHighBid }] = await get(
 			`/items/${$page.params.id}`
 		);
+
 		amount = '';
 		loading = false;
 		message = 'Success! You have the winning bid';
@@ -90,11 +91,7 @@
 				<div class="flex justify-between">
 					<Stat label="High Bid" value={'$' + item.price.toFixed(2)} />
 					<Stat bg="bg-amber-500" label="# Bids" value={item.bids} />
-					<Stat
-						bg="bg-violet-500"
-						label="Ending In"
-						value={endingAt}
-					/>
+					<Stat bg="bg-violet-500" label="Ending In" value={endingAt} />
 				</div>
 
 				{#if userHasHighBid}

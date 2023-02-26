@@ -28,7 +28,6 @@ export interface CreateItemAttrs {
 	endingAt: DateTime;
 	ownerId: string;
 	highestBidUserId: string;
-	status: string;
 	price: number;
 	views: number;
 	likes: number;
