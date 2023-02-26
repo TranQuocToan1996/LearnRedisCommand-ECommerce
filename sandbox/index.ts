@@ -1,26 +1,62 @@
-import 'dotenv/config';
-import { client } from '../src/services/redis';
+import axios from 'axios';
+import { performance } from 'perf_hooks';
+
+console.clear();
+console.log('Running...');
+
+let completedCount = 0;
+let success = 0;
+let fail = 0;
+const createBid = async (amount: number, port: number) => {
+	axios
+		.post(
+			`http://localhost:${port}/items/${itemId}/bids`,
+			{ amount },
+			{
+				headers: {
+					accept: 'application/json',
+					'content-type': 'application/json',
+					cookie
+				}
+			}
+		)
+		.then((res) => {
+			success++;
+		})
+		.catch((err) => {
+			if (err.code !== 'ECONNRESET') {
+				fail++;
+			}
+		})
+		.finally(() => {
+			completedCount++;
+			if (completedCount === attempts) {
+				console.table({
+					'Time Ms': Math.floor(performance.now() - start),
+					Successes: success,
+					Failures: fail,
+					'% Success': Math.round((success / (success + fail)) * 100)
+				});
+			}
+		});
+};
+
+const pause = async (p: number) => {
+	return new Promise((resolve) => {
+		setTimeout(resolve, p);
+	});
+};
+
+const cookie = 'auth=13eb2bd0%3AV7B3HR_JziPWb2zjpTUZVmmqIhs';
+const attempts = 50;
+const itemId = '3ee89c';
+const start = performance.now();
 
 const run = async () => {
-	await client.hSet('car1', {
-		color: 'red',
-		year: 1950
-	});
-	await client.hSet('car2', {
-		color: 'green',
-		year: 1955
-	});
-	await client.hSet('car3', {
-		color: 'blue',
-		year: 1960
-	});
-
-	const commands = [1, 2, 3].map((id) => {
-		return client.hGetAll('car' + id);
-	});
-
-	const results = await Promise.all(commands);
-
-	console.log(results);
+	for (let i = 0; i < attempts; i++) {
+		const port = [3000, 3001, 3002][i % 3];
+		createBid(40, port);
+		await pause(0);
+	}
 };
 run();

@@ -3,6 +3,8 @@
 	"version": "0.0.1",
 	"scripts": {
 		"dev": "svelte-kit dev",
+		"dev:two": "svelte-kit dev --port 3001",
+		"dev:three": "svelte-kit dev --port 3002",
 		"build": "svelte-kit build",
 		"package": "svelte-kit package",
 		"preview": "svelte-kit preview",
@@ -13,7 +15,7 @@
 		"seed": "node ./seeds/seed.js",
 		"worker": "ts-node-dev ./worker/index.ts",
 		"cli": "node cli/index.js",
-		"sandbox": "ts-node-dev -T ./sandbox/index.ts"
+		"sandbox": "ts-node-dev -T --respawn ./sandbox/index.ts"
 	},
 	"devDependencies": {
 		"@sveltejs/adapter-auto": "^1.0.0-next.17",
