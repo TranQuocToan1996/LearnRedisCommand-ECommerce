@@ -40,7 +40,7 @@ export const withLock = async (key: string, cb: (redisClient: Client, signal: an
 		} finally {
 			await client.unlock(lockKey, token);
 		}
-	}``
+	}
 };
 
 type Client = typeof client;
