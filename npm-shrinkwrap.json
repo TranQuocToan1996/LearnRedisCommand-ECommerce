@@ -16,6 +16,7 @@
 				"@types/ioredis": "^4.28.8",
 				"@types/keygrip": "^1.0.2",
 				"@types/luxon": "^2.0.9",
+				"axios": "^0.26.1",
 				"boxen": "^6.2.1",
 				"chart.js": "^3.7.1",
 				"chartjs-adapter-luxon": "^1.1.0",
@@ -410,6 +411,14 @@
 			"integrity": "sha512-zflvls11DCy+dQWzTW2dzuilv8Z5X/pjfmZOWba6TNIVDm+2UDaJmXSOXlasHKfNBs8oo3M0aT50fDEWfKZjXg==",
 			"dependencies": {
 				"lodash": "^4.17.14"
+			}
+		},
+		"node_modules/@pm2/js-api/node_modules/axios": {
+			"version": "0.21.4",
+			"resolved": "https://registry.npmjs.org/axios/-/axios-0.21.4.tgz",
+			"integrity": "sha512-ut5vewkiu8jjGBdqpM44XxjuCjq9LAKeHVmoVfHVzy8eHgxxq8SbAVQNovDA8mVi05kP0Ea/n/UzcSHcTJQfNg==",
+			"dependencies": {
+				"follow-redirects": "^1.14.0"
 			}
 		},
 		"node_modules/@pm2/js-api/node_modules/eventemitter2": {
@@ -847,11 +856,11 @@
 			}
 		},
 		"node_modules/axios": {
-			"version": "0.21.4",
-			"resolved": "https://registry.npmjs.org/axios/-/axios-0.21.4.tgz",
-			"integrity": "sha512-ut5vewkiu8jjGBdqpM44XxjuCjq9LAKeHVmoVfHVzy8eHgxxq8SbAVQNovDA8mVi05kP0Ea/n/UzcSHcTJQfNg==",
+			"version": "0.26.1",
+			"resolved": "https://registry.npmjs.org/axios/-/axios-0.26.1.tgz",
+			"integrity": "sha512-fPwcX4EvnSHuInCMItEhAGnaSEXRBjtzh9fOtsE6E1G6p7vl7edEeZe11QHf18+6+9gR5PbKV/sGKNaD8YaMeA==",
 			"dependencies": {
-				"follow-redirects": "^1.14.0"
+				"follow-redirects": "^1.14.8"
 			}
 		},
 		"node_modules/balanced-match": {
@@ -5972,6 +5981,14 @@
 						"lodash": "^4.17.14"
 					}
 				},
+				"axios": {
+					"version": "0.21.4",
+					"resolved": "https://registry.npmjs.org/axios/-/axios-0.21.4.tgz",
+					"integrity": "sha512-ut5vewkiu8jjGBdqpM44XxjuCjq9LAKeHVmoVfHVzy8eHgxxq8SbAVQNovDA8mVi05kP0Ea/n/UzcSHcTJQfNg==",
+					"requires": {
+						"follow-redirects": "^1.14.0"
+					}
+				},
 				"eventemitter2": {
 					"version": "6.4.5",
 					"resolved": "https://registry.npmjs.org/eventemitter2/-/eventemitter2-6.4.5.tgz",
@@ -6325,11 +6342,11 @@
 			}
 		},
 		"axios": {
-			"version": "0.21.4",
-			"resolved": "https://registry.npmjs.org/axios/-/axios-0.21.4.tgz",
-			"integrity": "sha512-ut5vewkiu8jjGBdqpM44XxjuCjq9LAKeHVmoVfHVzy8eHgxxq8SbAVQNovDA8mVi05kP0Ea/n/UzcSHcTJQfNg==",
+			"version": "0.26.1",
+			"resolved": "https://registry.npmjs.org/axios/-/axios-0.26.1.tgz",
+			"integrity": "sha512-fPwcX4EvnSHuInCMItEhAGnaSEXRBjtzh9fOtsE6E1G6p7vl7edEeZe11QHf18+6+9gR5PbKV/sGKNaD8YaMeA==",
 			"requires": {
-				"follow-redirects": "^1.14.0"
+				"follow-redirects": "^1.14.8"
 			}
 		},
 		"balanced-match": {

@@ -39,6 +39,7 @@
 		"@types/ioredis": "^4.28.8",
 		"@types/keygrip": "^1.0.2",
 		"@types/luxon": "^2.0.9",
+		"axios": "^0.26.1",
 		"boxen": "^6.2.1",
 		"chart.js": "^3.7.1",
 		"chartjs-adapter-luxon": "^1.1.0",
