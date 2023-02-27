@@ -20,6 +20,14 @@ npm init svelte@next my-app
 
 > Note: the `@next` is temporary
 
+## Before running
+Create a .env file at the root folder with below info. Refer if you running redis in docker with default config.
+```
+REDIS_HOST=localhost
+REDIS_PORT=6379
+REDIS_PW=
+```
+
 ## Developing
 
 Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
